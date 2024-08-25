@@ -31,8 +31,8 @@ header {
 }
 
 footer p {
-    color: #990000; /* White text like the header */
-    margin: 0; /* Remove default paragraph margin */
+  color: #990000; /* White text like the header */
+  margin: 0; /* Remove default paragraph margin */
 }
 
 ul {
@@ -73,6 +73,7 @@ p {
   width: 100%;
   height: 100%;
   overflow: hidden;
+  cursor: none;
 }
 
 #map {
@@ -82,12 +83,12 @@ p {
   cursor: crosshair;
   width: 100%;
   height: auto;
-  transition: transform 0.2s ease; /* 줌 애니메이션을 부드럽게 처리 */
+  transition: transform 0.2s ease;
   transform-origin: center center;
+  cursor: default;
 }
 
 #coordinates {
-  margin-top: 10px;
   font-size: 18px;
   color: #333;
 }
