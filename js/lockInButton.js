@@ -1,9 +1,13 @@
-export const handleButton = (e) => {
-  const clickBtn = document.querySelector("#lockInButton");
+import { checkAnswer } from "./checkAnswer";
 
+export const handleButton = (e) => {
+  const showBtn = document.querySelector("#lockInButton-container");
+  const clickBtn = document.querySelector("#lockInButton");
   if (!e) {
     return;
   } else {
-    clickBtn.style.display = "flex";
+    showBtn.style.display = "flex";
   }
+
+  clickBtn.addEventListener("click", checkAnswer(e));
 };
