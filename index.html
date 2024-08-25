@@ -9,7 +9,7 @@
 <!-- Background is White with Borders of Red on Top and Bottom-->
 <body>
     <header>
-        <h1>Indiana University Bloomington</hheader>
+        <h1>Indiana University Bloomington</h1>
     </header>
     <nav>
         <ul>
@@ -19,9 +19,10 @@
         </ul>
     </nav>
     <main>
+       <section>
         <h1>Welcome to IU Guesser</h1>
         <p>Click on the map of campus where you think the photo was taken!</p>
-        <img src="images/iu-campus-map.jpg" alt="IU Campus Map" usemap="#iu-campus-map">
+        <img src="images/campus-map.png" alt="IU Campus Map" usemap="#iu-campus-map">
         <map name="iu-campus-map">
             <area shape="rect" coords="0,0,82,126" alt="Sample Photo 1" href="sample-photo-1.png">
             <area shape="rect" coords="83,0,165,126" alt="Sample Photo 2" href="sample-photo-2.png">
@@ -34,6 +35,13 @@
             <area shape="rect" coords="664,0,746,126" alt="Sample Photo 9" href="sample-photo-9.png">
             <area shape="rect" coords="747,0,829,126" alt="Sample Photo 10" href="sample-photo-10.png">
         </map>
+       </section>
+       <section id="right-section">
+          <div  id="right-section-display-map">
+            <img src="images/event_product_hero_img.jpg" alt="" id="right-section-map-image">
+            <div id="image-total"></div>
+          </div>
+       </section>
 
     <script src="js/scripts.js"></script>
 </body>

@@ -1,20 +1,32 @@
 /* Reset some default browser styling */
 * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
 body {
-    font-family: Arial, sans-serif;
-    line-height: 1.6;
-    padding: 20px;
+  font-family: Arial, sans-serif;
+  line-height: 1.6;
+  padding: 20px;
+}
+
+main {
+  display: flex;
+  justify-content: space-between;
 }
 
 h1 {
-    color: #333;
+  color: #333;
 }
 
 p {
-    color: #666;
+  color: #666;
+}
+
+/* Right Section */
+
+#right-section {
+  display: flex;
+  justify-content: center;
 }
