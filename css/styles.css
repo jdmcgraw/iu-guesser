@@ -5,6 +5,11 @@
   box-sizing: border-box;
 }
 
+/* Make All Attributes have transition */
+* {
+  transition: all 0.3s ease;
+}
+
 body {
   font-family: Arial, sans-serif;
   line-height: 1.6;
@@ -112,7 +117,7 @@ p {
   }
 
   .image-total {
-    font-size: 1.5rem;
+    font-size: 1.4rem;
     display: flex;
     flex-direction: column;
     align-items: center;

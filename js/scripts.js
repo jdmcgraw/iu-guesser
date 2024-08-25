@@ -1,81 +1,56 @@
-import { handleButton } from "./lockInButton.js";
+import { handleButton as showLockButton } from "./lockInButton.js";
 
 document.addEventListener("DOMContentLoaded", function () {
+    
+    const mapImage = document.getElementById("map");
     const imageContainer = document.getElementById("image-container");
-    const interactiveImage = document.getElementById("map");
 
     // Disable dragging
-    interactiveImage.addEventListener("dragstart", function (event) {
+    mapImage.addEventListener("dragstart", function (event) {
         event.preventDefault();
     });
 
     let guessPin = null;
-    let answerPin = null;
+
     const pinWidth = 16; // Should match .map-pin width in CSS
     const pinHeight = 24; // Should match .map-pin height in CSS
-    // Map TL Lat: 39.175096, Long: -86.531024
-    // Map BR Lat: 39.158177, Long: -86.510574
+    
+    // Left_bottom = Long 39.163060,  -86.531024
+    // Right_bottom = Long  39.163060, -86.531024
+
+    // Disable the default context menu on the image
+    mapImage.addEventListener('contextmenu', function (event) {
+        event.preventDefault();
+    });
 
     // Set up to handle image clicks
-    interactiveImage.addEventListener("click", function (event) {
-        const rect = interactiveImage.getBoundingClientRect(); // Get bounding box of image
+    mapImage.addEventListener("click", function (event) {
+        const rect = mapImage.getBoundingClientRect(); // Get bounding box of image
+        showLockButton(rect); // Call handleButton function from lockInButton.js
 
-        handleButton(rect);
-        // Calculate local coordinates relative to the image
-        console.log(rect.left, rect.top);
         const x = event.clientX - rect.left;
         const y = event.clientY - rect.top;
 
+        // Calculate local coordinates relative to the image
+        console.log(rect.left, rect.top);
         console.log(`Click coordinates relative to image: X: ${x}, Y: ${y}`);
+        guessPin = createGuessPin(x, y);
+    });
 
-        // Remove the last pin if it exists
+    // Function to create a pin
+    function createGuessPin(x, y) {
         if (guessPin) {
             imageContainer.removeChild(guessPin);
         }
 
-        if (answerPin) {
-            imageContainer.removeChild(answerPin);
-        }
-
-        // Create a new pin for the current click
-        if (event.button === 0) {
-            console.log("Left button clicked");
-            guessPin = createGuessPin();
-            guessPin.style.left = `${x - pinWidth / 2}px`;
-            guessPin.style.top = `${y - (pinHeight + 3)}px`;
-            imageContainer.appendChild(guessPin);
-        } else {
-            console.log("Right button clicked");
-            answerPin = createAnswerPin();
-            answerPin.style.left = `${x - pinWidth / 2}px`;
-            answerPin.style.top = `${y - (pinHeight + 3)}px`;
-            imageContainer.appendChild(answerPin);
-        }
-    });
-
-    // Disable the default context menu on the image
-    map.addEventListener('contextmenu', function (event) {
-        event.preventDefault();
-        // Add your custom right-click action here
-        // customRightClickAction()
-    });
-
-    // Function to create a pin
-    function createGuessPin() {
         const pin = new Image();
         pin.src = "images/map-pin.svg";
         pin.className = "map-pin";
-        return pin;
-    }
-
-    // Function to create a pin
-    function createAnswerPin() {
-        const pin = new Image();
-        pin.src = "images/map-pin.svg";
         pin.className = "map-pin";
-        pin.style.fill = "blue";
+        pin.style.left = `${x - pinWidth / 2}px`;
+        pin.style.top = `${y - (pinHeight + 3)}px`;
+        imageContainer.appendChild(pin);
         return pin;
     }
-
 });
 
