@@ -1,6 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
+    <script type="module" src="js/scripts.js"></script>
+    <script src="js/zoomControl.js"></script>
     <link rel="stylesheet" href="css/styles.css" />
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -40,8 +42,8 @@
         <div class="right-section-display-map">
           <img src="images/event_product_hero_img.jpg" alt="" />
           <div class="image-total">
-            <div id="lockInButton-container">
-              <button id="lockInButton">Lock In</button>
+            <div id="lockInButton">
+              <button onclick="submitGuess()">Lock In</button>
             </div>
             <div>
               <span class="image-total-score">Score: 0</span>
@@ -50,6 +52,9 @@
           </div>
         </div>
       </section>
+
+      <!-- Element to display the coordinates -->
+      <p id="coordinates"></p>
     </main>
 
     <footer>
