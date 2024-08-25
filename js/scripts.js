@@ -7,7 +7,8 @@ document.addEventListener("DOMContentLoaded", function () {
     event.preventDefault();
   });
 
-  let lastPin = null;
+  let guessPin = null;
+  let answerPin = null;
 
   // Set up to handle image clicks
   interactiveImage.addEventListener("click", function (event) {
@@ -21,28 +22,41 @@ document.addEventListener("DOMContentLoaded", function () {
     console.log(`Click coordinates relative to image: X: ${x}, Y: ${y}`);
 
     // Remove the last pin if it exists
-    if (lastPin) {
-      imageContainer.removeChild(lastPin);
+    if (guessPin) {
+      imageContainer.removeChild(guessPin);
     }
+    if (guessPin) {
+        imageContainer.removeChild(guessPin);
+      }
 
     // Create a new pin for the current click
-    lastPin = createPin();
+    guessPin = createGuessPin();
 
     // Set the position of the pin, adjusting for pin dimensions
     const pinWidth = 16; // Should match .map-pin width in CSS
     const pinHeight = 24; // Should match .map-pin height in CSS
-    lastPin.style.left = `${x - pinWidth / 2}px`;
-    lastPin.style.top = `${y - (pinHeight + 3)}px`;
+    guessPin.style.left = `${x - pinWidth / 2}px`;
+    guessPin.style.top = `${y - (pinHeight + 3)}px`;
 
     // Append the pin to the image container
-    imageContainer.appendChild(lastPin);
+    imageContainer.appendChild(guessPin);
   });
 
   // Function to create a pin
-  function createPin() {
+  function createGuessPin() {
     const pin = new Image();
     pin.src = "images/map-pin.svg";
     pin.className = "map-pin";
     return pin;
   }
+
+  // Function to create a pin
+  function createAnswerPin() {
+    const pin = new Image();
+    pin.src = "images/map-pin.svg";
+    pin.className = "map-pin";
+    pin.style.fill = "blue";
+    return pin;
+  }
+
 });
