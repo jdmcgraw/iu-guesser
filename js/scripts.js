@@ -25,12 +25,14 @@ document.addEventListener("DOMContentLoaded", function () {
     if (guessPin) {
       imageContainer.removeChild(guessPin);
     }
-    if (guessPin) {
-        imageContainer.removeChild(guessPin);
+
+    if (answerPin) {
+        imageContainer.removeChild(answerPin);
       }
 
     // Create a new pin for the current click
     guessPin = createGuessPin();
+    answerPin = createAnswerPin();
 
     // Set the position of the pin, adjusting for pin dimensions
     const pinWidth = 16; // Should match .map-pin width in CSS
@@ -38,8 +40,12 @@ document.addEventListener("DOMContentLoaded", function () {
     guessPin.style.left = `${x - pinWidth / 2}px`;
     guessPin.style.top = `${y - (pinHeight + 3)}px`;
 
+    answerPin.style.left = `${x - pinWidth / 2}px`;
+    answerPin.style.top = `${y - (pinHeight + 3)}px`;
+
     // Append the pin to the image container
     imageContainer.appendChild(guessPin);
+    imageContainer.appendChild(answerPin);
   });
 
   // Function to create a pin
@@ -60,3 +66,4 @@ document.addEventListener("DOMContentLoaded", function () {
   }
 
 });
+
