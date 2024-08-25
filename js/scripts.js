@@ -54,7 +54,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
         const pin = new Image();
         pin.src = "images/map-pin.svg";
-        pin.className = "map-pin";
+        pin.id = "guess-pin";
         pin.className = "map-pin";
         pin.style.left = `${x - pinWidth / 2}px`;
         pin.style.top = `${y - (pinHeight + 3)}px`;

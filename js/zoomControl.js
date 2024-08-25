@@ -2,6 +2,9 @@ document.addEventListener("DOMContentLoaded", function () {
   const containerElement = document.querySelector("#image-container");
   const zoomElement = document.querySelector("#map");
 
+  const pinWidth = 16; // Should match .map-pin width in CSS
+  const pinHeight = 24; // Should match .map-pin height in CSS
+
   if (!zoomElement || !containerElement) {
     console.error("Required elements are missing in the DOM.");
     return;
@@ -27,10 +30,12 @@ document.addEventListener("DOMContentLoaded", function () {
       zoomElement.style.transform = `scale(${zoom})`;
       zoomElement.style.transformOrigin = `${offsetX * 100}% ${offsetY * 100}%`;
 
-      var guessPin = document.getElementById('guessPin');
+      var guessPin = document.getElementById('guess-pin');
+      console.log('guess-pin:', guessPin);
       // If guessPin exists, update its position accordingly to the scale and origin
       if (guessPin) {
         const rect = zoomElement.getBoundingClientRect();
+
         const x = guessPin.x * zoom;
         const y = guessPin.y * zoom;
         guessPin.style.left = `${x - pinWidth / 2}px`;
