@@ -7,6 +7,11 @@ const ZOOM_SPEED = 0.1;
 document.addEventListener("wheel", function (e) {
   e.preventDefault(); // 기본 스크롤 동작 방지
 
+  // 마우스 위치에 따른 상대 좌표 계산
+  const rect = zoomElement.getBoundingClientRect();
+  const offsetX = (e.clientX - rect.left) / rect.width;
+  const offsetY = (e.clientY - rect.top) / rect.height;
+
   // 줌 인/아웃
   if (e.deltaY > 0) {
     zoom -= ZOOM_SPEED;
@@ -20,9 +25,6 @@ document.addEventListener("wheel", function (e) {
   // 이미지 확대/축소 적용
   zoomElement.style.transform = `scale(${zoom})`;
 
-  // 이미지가 컨테이너를 벗어나지 않도록 중앙으로 유지
-  const rect = zoomElement.getBoundingClientRect();
-  const offsetX = (containerElement.offsetWidth - rect.width) / 2;
-  const offsetY = (containerElement.offsetHeight - rect.height) / 2;
-  zoomElement.style.transformOrigin = `${offsetX}px ${offsetY}px`;
+  // 마우스 포인터 위치를 기준으로 한 transform-origin 설정
+  zoomElement.style.transformOrigin = `${offsetX * 100}% ${offsetY * 100}%`;
 });
