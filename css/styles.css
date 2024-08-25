@@ -5,9 +5,9 @@
   box-sizing: border-box;
 }
 
-/* Make All Attributes have transition */
+/* Make All Attributes have a transition */
 * {
-  transition: all 0.3s ease;
+  transition: all 0.5s ease;
 }
 
 body {
@@ -107,8 +107,8 @@ p {
 }
 
 /* ------------------------------------------- */
-
 /* Right Section */
+/* ------------------------------------------- */
 
 .right-section {
   display: flex;
@@ -116,6 +116,21 @@ p {
   justify-content: center;
   height: 100%;
 }
+
+#lockInButton {
+    flex-direction: column;
+    padding: 15px 20px;
+    font-size: 1.5rem;
+    border: none;
+    background-color: #990000;
+    color: #ffffff;
+    transition: 0.3s ease-in-out;
+    border-radius: 5px;
+    cursor: pointer;
+    &:hover {
+      background-color: #95000096;
+    }
+  }
 
 .right-section-display-map {
   img {
@@ -133,27 +148,12 @@ p {
         margin-left: 0.5rem;
       }
     }
-
-    #lockInButton {
-      display: none;
-      padding: 15px 20px;
-      font-size: 1.5rem;
-      border: none;
-      background-color: #990000;
-      color: #ffffff;
-      transition: 0.3s ease-in-out;
-      border-radius: 5px;
-      cursor: pointer;
-      &:hover {
-        background-color: #99000064;
-      }
-    }
   }
 }
 
 /* ------------------------------------------- */
-
 /* -----------------Footer-------------------- */
+/* ------------------------------------------- */
 
 footer {
   width: 100%;
@@ -169,8 +169,9 @@ footer {
 }
 
 /* ------------------------------------------- */
-
 /* Style for the map pin */
+/* ------------------------------------------- */
+
 .map-pin {
   position: absolute;
   width: 16px;

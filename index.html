@@ -1,66 +1,65 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
+
+<head>
     <script type="module" src="js/scripts.js"></script>
     <script src="js/zoomControl.js"></script>
     <link rel="stylesheet" href="css/styles.css" />
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>IU GeoGuesser</title>
-  </head>
+</head>
 
-  <!-- Background is White with Borders of Red on Top and Bottom-->
-  <body>
+<!-- Background is White with Borders of Red on Top and Bottom-->
+
+<body>
     <header>
-      <h1>Indiana University Bloomington</h1>
-      <nav>
-        <ul>
-          <li><a href="index.html">Home</a></li>
-          <li><a href="about.html">About</a></li>
-          <li><a href="contact.html">Contact</a></li>
-        </ul>
-      </nav>
+        <h1>Indiana University Bloomington</h1>
+        <nav>
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="about.html">About</a></li>
+                <li><a href="contact.html">Contact</a></li>
+            </ul>
+        </nav>
     </header>
 
     <main>
-      <section>
-        <h1>Welcome to IU Guesser</h1>
-        <p>Click on the map of campus where you think the photo was taken!</p>
+        <section>
+            <h1>Welcome to IU Guesser</h1>
+            <p>Click on the map of campus where you think the photo was
+                taken!</p>
 
-        <div id="image-container" class="campus-image-cotaniner">
-          <img
-            id="map"
-            class="campus-image"
-            src="images/campus-map.png"
-            alt="IU Campus Map"
-            usemap="#iu-campus-map"
-            onclick
-          />
-        </div>
-      </section>
-      <section class="right-section">
-        <div class="right-section-display-map">
-          <img id="testImage" src="images/event_product_hero_img.jpg" alt />
-          <div class="image-total">
-            <div>
-              <span class="image-actual-distance">Actual Distance: 0</span
-              ><br />
-              <span class="image-total-score">Score: 0</span>
-              <span class="image-total-highscore">Highscore: 0 </span>
+            <div id="image-container" class="campus-image-cotaniner">
+                <img id="map" class="campus-image" src="images/campus-map.png" alt="IU Campus Map"
+                    usemap="#iu-campus-map" onclick />
             </div>
             <button id="lockInButton">Lock In</button>
-          </div>
-        </div>
-      </section>
+        </section>
+        <section class="right-section">
+            <div class="right-section-display-map">
+                <img id="testImage" src="images/event_product_hero_img.jpg" alt />
+                <div class="image-total">
+                    <div>
+                        <span class="image-actual-distance">Actual Distance:
+                            0</span><br />
+                        <span class="image-total-score">Score: 0</span>
+                        <span class="image-total-highscore">Highscore: 0
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </section>
     </main>
     <footer>
-      <p>&copy; 2024 IU Guesser</p>
+        <p>&copy; 2024 IU Guesser</p>
     </footer>
 
     <!-- Element to display the coordinates -->
     <p id="coordinates"></p>
-  </body>
+</body>
 
-  <script type="module" src="js/scripts.js"></script>
-  <script src="js/zoomControl.js"></script>
+<script type="module" src="js/scripts.js"></script>
+<script src="js/zoomControl.js"></script>
+
 </html>
