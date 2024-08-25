@@ -1,5 +1,13 @@
 import { handleButton as showLockButton } from "./lockInButton.js";
 
+let guessPin = null;
+
+const pinWidth = 16; // Should match .map-pin width in CSS
+const pinHeight = 24; // Should match .map-pin height in CSS
+    
+const top_left = {x: 39.163060, y: -86.531024};
+const bottom_right = {x: 39.163060, y: -86.531024};
+
 document.addEventListener("DOMContentLoaded", function () {
     
     const mapImage = document.getElementById("map");
@@ -23,14 +31,6 @@ document.addEventListener("DOMContentLoaded", function () {
     testImage.addEventListener('contextmenu', function (event) {
         event.preventDefault();
     });
-
-    let guessPin = null;
-
-    const pinWidth = 16; // Should match .map-pin width in CSS
-    const pinHeight = 24; // Should match .map-pin height in CSS
-    
-    const tl = {x: 39.163060, y: -86.531024};
-    const br = {x: 39.163060, y: -86.531024};
 
     // Set up to handle image clicks
     mapImage.addEventListener("click", function (event) {
@@ -60,6 +60,18 @@ document.addEventListener("DOMContentLoaded", function () {
         pin.style.top = `${y - (pinHeight + 3)}px`;
         imageContainer.appendChild(pin);
         return pin;
+    }
+
+    function submitGuess(){
+        const guessPin = document.querySelector(".map-pin");
+        if (guessPin) {
+            const rect = mapImage.getBoundingClientRect();
+            const x = guessPin.offsetLeft + pinWidth / 2;
+            const y = guessPin.offsetTop + pinHeight + 3;
+            const offsetX = x / rect.width;
+            const offsetY = y / rect.height;
+            console.log(`Guess submitted: X: ${offsetX}, Y: ${offsetY}`);
+        }
     }
 });
 
