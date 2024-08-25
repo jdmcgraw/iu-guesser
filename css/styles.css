@@ -21,6 +21,12 @@ header {
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  background-color: #990000;
+  margin: 0;
+
+  h1 {
+    color: #ffffff;
+  }
 }
 
 ul {
@@ -32,7 +38,7 @@ ul {
     font-size: 1.25rem;
     a {
       text-decoration: none;
-      color: black;
+      color: #ffffff;
       &:hover {
         color: #006298;
       }
@@ -58,11 +64,24 @@ p {
 
 /* Right Section */
 
-#right-section {
+.right-section {
   display: flex;
   justify-content: center;
 }
 
-#right-section-map-image {
-  width: 50%;
+.right-section-display-map {
+  img {
+    width: 80%;
+  }
+
+  .image-total {
+    font-size: 1.5rem;
+
+    .image-total-score {
+      &::after {
+        content: "|";
+        margin-left: 0.5rem;
+      }
+    }
+  }
 }
