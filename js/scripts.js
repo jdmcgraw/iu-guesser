@@ -1,3 +1,5 @@
+import { handleButton } from "./lockInButton.js";
+
 document.addEventListener("DOMContentLoaded", function () {
   const imageContainer = document.getElementById("image-container");
   const interactiveImage = document.getElementById("map");
@@ -13,6 +15,7 @@ document.addEventListener("DOMContentLoaded", function () {
   interactiveImage.addEventListener("click", function (event) {
     const rect = interactiveImage.getBoundingClientRect(); // Get bounding box of image
 
+    handleButton(rect);
     // Calculate local coordinates relative to the image
     console.log(rect.left, rect.top);
     const x = event.clientX - rect.left;
