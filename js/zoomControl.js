@@ -6,17 +6,7 @@ document.addEventListener("DOMContentLoaded", function () {
     console.error("Required elements are missing in the DOM.");
     return;
   }
-document.addEventListener("DOMContentLoaded", function () {
-  const containerElement = document.querySelector("#image-container");
-  const zoomElement = document.querySelector("#map");
 
-  if (!zoomElement || !containerElement) {
-    console.error("Required elements are missing in the DOM.");
-    return;
-  }
-
-  let zoom = 1;
-  const ZOOM_SPEED = 0.1;
   let zoom = 1;
   const ZOOM_SPEED = 0.1;
 
@@ -36,7 +26,7 @@ document.addEventListener("DOMContentLoaded", function () {
       }
 
       zoom = Math.min(Math.max(zoom, 1), 3);
-      zoomElement.style.transform = scale($`{zoom}`);
+      zoomElement.style.transform = `scale(${zoom})`;
       zoomElement.style.transformOrigin = `${offsetX * 100}% ${offsetY * 100}%`;
 
       // If guessPin exists, update its position accordingly to the scale and origin
