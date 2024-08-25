@@ -115,15 +115,14 @@ p {
     font-size: 1.5rem;
     display: flex;
     flex-direction: column;
+    align-items: center;
     .image-total-score {
       &::after {
         content: "|";
         margin-left: 0.5rem;
       }
     }
-  }
-  #lockInButton {
-    display: none;
+
     button {
       padding: 15px 20px;
       font-size: 1.5rem;
