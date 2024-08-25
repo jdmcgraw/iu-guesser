@@ -1,5 +1,5 @@
-const zoomElement = document.querySelector("#map");
 const containerElement = document.querySelector("#image-container");
+const zoomElement = document.querySelector("#map");
 
 let zoom = 1;
 const ZOOM_SPEED = 0.1;
