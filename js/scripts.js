@@ -1,25 +1,41 @@
 document.addEventListener('DOMContentLoaded', function() {
     const imageContainer = document.getElementById('image-container');
     const interactiveImage = document.getElementById('map');
-    
-    // Setup to handle image clicks
+
+    // Disable dragging
+    interactiveImage.addEventListener('dragstart', function(event) {
+    event.preventDefault();
+    });
+
+    let lastPin = null;
+
+    // Set up to handle image clicks
     interactiveImage.addEventListener('click', function(event) {
-        const rect = interactiveImage.getBoundingClientRect();
-        const x = event.clientX - rect.left;
-        const y = event.clientY - rect.top;
+        const rect = interactiveImage.getBoundingClientRect(); // Get bounding box of image
 
-        // Log coordinates (optional)
-        console.log(`X: ${x}, Y: ${y}`);
-
-        // Create a new pin for the current click
-        const pin = createPin();
+        // Calculate local coordinates relative to the image
+        console.log(rect.left, rect.top);
+        const x = event.clientX;
+        const y = event.clientY;
         
-        // Set the position of the pin
-        pin.style.left = `${x - 12}px`; // Adjust to center the pin on click
-        pin.style.top = `${y - 12}px`; // Adjust to center the pin on click
+        console.log(`Click coordinates relative to image: X: ${x}, Y: ${y}`);
+
+        // Remove the last pin if it exists
+        if (lastPin) {
+            imageContainer.removeChild(lastPin);
+        }
+        
+        // Create a new pin for the current click
+        lastPin = createPin();
+        
+        // Set the position of the pin, adjusting for pin dimensions
+        const pinWidth = 16; // Should match .map-pin width in CSS
+        const pinHeight = 24; // Should match .map-pin height in CSS
+        lastPin.style.left = `${x - pinWidth / 2}px`; 
+        lastPin.style.top = `${y - (pinHeight + 3) }px`;
 
         // Append the pin to the image container
-        imageContainer.appendChild(pin);
+        imageContainer.appendChild(lastPin);
     });
 
     // Function to create a pin
