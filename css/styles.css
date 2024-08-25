@@ -18,3 +18,14 @@ h1 {
 p {
     color: #666;
 }
+
+#map {
+    border: 2px solid #000;
+    cursor: crosshair;
+}
+
+#coordinates {
+    margin-top: 10px;
+    font-size: 18px;
+    color: #333;
+}
