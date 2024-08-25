@@ -29,6 +29,11 @@ header {
   }
 }
 
+footer p {
+    color: #990000; /* White text like the header */
+    margin: 0; /* Remove default paragraph margin */
+}
+
 ul {
   display: flex;
   justify-content: space-between;
