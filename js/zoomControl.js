@@ -6,6 +6,8 @@ document.addEventListener("DOMContentLoaded", function () {
     console.error("Required elements are missing in the DOM.");
     return;
   }
+});
+
 document.addEventListener("DOMContentLoaded", function () {
   const containerElement = document.querySelector("#image-container");
   const zoomElement = document.querySelector("#map");
@@ -17,12 +19,8 @@ document.addEventListener("DOMContentLoaded", function () {
 
   let zoom = 1;
   const ZOOM_SPEED = 0.1;
-  let zoom = 1;
-  const ZOOM_SPEED = 0.1;
 
-  document.addEventListener(
-    "wheel",
-    function (e) {
+  document.addEventListener("wheel", function (e) {
       e.preventDefault();
 
       const rect = zoomElement.getBoundingClientRect();

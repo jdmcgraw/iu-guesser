@@ -3,10 +3,24 @@ import { handleButton as showLockButton } from "./lockInButton.js";
 document.addEventListener("DOMContentLoaded", function () {
     
     const mapImage = document.getElementById("map");
+    const testimage = document.getElementById("testImage");
+
     const imageContainer = document.getElementById("image-container");
 
     // Disable dragging
     mapImage.addEventListener("dragstart", function (event) {
+        event.preventDefault();
+    });
+    // Disable the default context menu on the image
+    mapImage.addEventListener('contextmenu', function (event) {
+        event.preventDefault();
+    });
+    // Disable dragging
+    testImage.addEventListener("dragstart", function (event) {
+        event.preventDefault();
+    });
+    // Disable the default context menu on the image
+    testImage.addEventListener('contextmenu', function (event) {
         event.preventDefault();
     });
 
@@ -15,13 +29,8 @@ document.addEventListener("DOMContentLoaded", function () {
     const pinWidth = 16; // Should match .map-pin width in CSS
     const pinHeight = 24; // Should match .map-pin height in CSS
     
-    // Left_bottom = Long 39.163060,  -86.531024
-    // Right_bottom = Long  39.163060, -86.531024
-
-    // Disable the default context menu on the image
-    mapImage.addEventListener('contextmenu', function (event) {
-        event.preventDefault();
-    });
+    const tl = {x: 39.163060, y: -86.531024};
+    const br = {x: 39.163060, y: -86.531024};
 
     // Set up to handle image clicks
     mapImage.addEventListener("click", function (event) {
