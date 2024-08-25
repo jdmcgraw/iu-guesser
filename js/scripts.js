@@ -57,7 +57,7 @@ document.addEventListener("DOMContentLoaded", function () {
     map.addEventListener('contextmenu', function (event) {
         event.preventDefault();
         // Add your custom right-click action here
-        customRightClickAction()
+        // customRightClickAction()
     });
 
     // Function to create a pin
