@@ -15,8 +15,8 @@ document.addEventListener('DOMContentLoaded', function() {
 
         // Calculate local coordinates relative to the image
         console.log(rect.left, rect.top);
-        const x = event.clientX;
-        const y = event.clientY;
+        const x = event.clientX - rect.left;
+        const y = event.clientY - rect.top;
         
         console.log(`Click coordinates relative to image: X: ${x}, Y: ${y}`);
 
