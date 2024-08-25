@@ -1,11 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <link rel="stylesheet" href="css/styles.css">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>My Web Project</title>
-    <link rel="stylesheet" href="css/styles.css">
 </head>
+
 <!-- Background is White with Borders of Red on Top and Bottom-->
 <body>
     <header>
@@ -23,7 +24,7 @@
        <section>
         <h1>Welcome to IU Guesser</h1>
         <p>Click on the map of campus where you think the photo was taken!</p>
-        <img src="images/campus-map.png" alt="IU Campus Map" usemap="#iu-campus-map">
+        <img  id="map" src="images/campus-map.png" alt="IU Campus Map" usemap="#iu-campus-map" onclick>
         <map name="iu-campus-map">
             <area shape="rect" coords="0,0,82,126" alt="Sample Photo 1" href="sample-photo-1.png">
             <area shape="rect" coords="83,0,165,126" alt="Sample Photo 2" href="sample-photo-2.png">
@@ -47,6 +48,9 @@
           </div>
 
        </section>
+
+        <!-- Element to display the coordinates -->
+        <p id="coordinates"></p>
 
     <script src="js/scripts.js"></script>
 </body>
