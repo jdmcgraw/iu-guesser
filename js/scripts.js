@@ -1,18 +1,32 @@
 document.addEventListener('DOMContentLoaded', function() {
-    const image = document.getElementById('interactive-image');
-    const coordinatesDisplay = document.getElementById('coordinates');
+    const imageContainer = document.getElementById('image-container');
+    const interactiveImage = document.getElementById('map');
     
-    // Function to get cursor position within the image
-    function getCursorPosition(event) {
-        const rect = image.getBoundingClientRect();
+    // Setup to handle image clicks
+    interactiveImage.addEventListener('click', function(event) {
+        const rect = interactiveImage.getBoundingClientRect();
         const x = event.clientX - rect.left;
         const y = event.clientY - rect.top;
-        return { x: x, y: y };
-    }
 
-    // Add click event listener to the image
-    image.addEventListener('click', function(event) {
-        const position = getCursorPosition(event);
-        coordinatesDisplay.textContent = `X: ${position.x}, Y: ${position.y}`;
+        // Log coordinates (optional)
+        console.log(`X: ${x}, Y: ${y}`);
+
+        // Create a new pin for the current click
+        const pin = createPin();
+        
+        // Set the position of the pin
+        pin.style.left = `${x - 12}px`; // Adjust to center the pin on click
+        pin.style.top = `${y - 12}px`; // Adjust to center the pin on click
+
+        // Append the pin to the image container
+        imageContainer.appendChild(pin);
     });
+
+    // Function to create a pin
+    function createPin() {
+        const pin = new Image();
+        pin.src = 'images/map-pin.svg';
+        pin.className = 'map-pin';
+        return pin;
+    }
 });

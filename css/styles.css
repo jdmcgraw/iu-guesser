@@ -57,6 +57,8 @@ p {
 }
 
 #map {
+    position: relative;
+    display: inline-block; /* So it only wraps the image */
     border: 2px solid #000;
     cursor: crosshair;
 }
@@ -76,4 +78,12 @@ p {
 
 #right-section-map-image {
   width: 50%;
+}
+
+/* Style for the map pin */
+.map-pin {
+    position: absolute;
+    width: 16px;
+    height: 24px;
+    pointer-events: none;
 }
