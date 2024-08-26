@@ -11,49 +11,49 @@ export const imagesList = [
     id: 1,
     name: "rose_well_house",
     src: rose_well_house,
-    lat: 100, // Example coordinates
-    long: 150, // Example coordinates
+    lat: 353, // Example coordinates
+    long: 526, // Example coordinates
   },
   {
     id: 2,
     name: "maxwell",
     src: maxwell,
-    lat: 200, // Example coordinates
-    long: 250, // Example coordinates
+    lat: 353, // Example coordinates
+    long: 526, // Example coordinates
   },
   {
     id: 3,
     name: "kirkwood",
     src: kirkwood,
-    lat: 300, // Example coordinates
-    long: 350, // Example coordinates
+    lat: 353, // Example coordinates
+    long: 526, // Example coordinates
   },
   {
     id: 4,
     name: "good_body",
     src: good_body,
-    lat: 400, // Example coordinates
-    long: 450, // Example coordinates
+    lat: 353, // Example coordinates
+    long: 526, // Example coordinates
   },
   {
     id: 5,
     name: "event_product",
     src: event_product,
-    lat: 500, // Example coordinates
-    long: 550, // Example coordinates
+    lat: 353, // Example coordinates
+    long: 526, // Example coordinates
   },
   {
     id: 6,
     name: "auditorium",
     src: auditorium,
-    lat: 600, // Example coordinates
-    long: 650, // Example coordinates
+    lat: 353, // Example coordinates
+    long: 526, // Example coordinates
   },
   {
     id: 7,
     name: "arts_plaza",
     src: arts_plaza,
-    lat: 700, // Example coordinates
-    long: 750, // Example coordinates
+    lat: 353, // Example coordinates
+    long: 526, // Example coordinates
   },
 ];

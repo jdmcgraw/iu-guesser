@@ -19,6 +19,10 @@ body {
   min-height: 100vh;
 }
 
+.correct-location-pin {
+    z-index: 9999 !important; /* Ensure correct pins are on top */
+}
+
 main {
   display: flex;
   justify-content: space-between;

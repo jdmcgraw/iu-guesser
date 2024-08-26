@@ -1,112 +1,106 @@
-import { handleButton as showLockButton } from "./lockInButton.js";
+import { imagesList } from "./images.js";
 
-let guessPin = null;
 let currentImageIndex = 0;
 let currentImage = imagesList[currentImageIndex];
 let userScore = 0;
 let highScore = 0;
 const correctRange = 100; // 100 meters
-
-const pinWidth = 16; // Should match .map-pin width in CSS
-const pinHeight = 24; // Should match .map-pin height in CSS
-
-function getRandomCoordinates(top_left, bottom_right) {
-  const getRandomInRange = (min, max) => Math.random() * (max - min) + min;
-
-  return {
-    lat: getRandomInRange(top_left.x, bottom_right.x),
-    long: getRandomInRange(top_left.y, bottom_right.y),
-  };
-}
+let markersGroup = L.layerGroup();
 
 document.addEventListener("DOMContentLoaded", function () {
+    const lockInButton = document.getElementById("lockInButton");
+    const testImage = document.getElementById("testImage");
+    const distanceDisplay = document.querySelector('.image-actual-distance');
+    const scoreDisplay = document.querySelector('.image-total-score');
+    const highScoreDisplay = document.querySelector('.image-total-highscore');
 
-  const mapImage = document.getElementById("map");
-  const imageContainer = document.getElementById("image-container");
-  const lockInButton = document.getElementById("lockInButton");
-  const testImage = document.getElementById("testImage");
-  const distanceDisplay = document.querySelector('.image-actual-distance');
-  const scoreDisplay = document.querySelector('.image-total-score');
-  const highScoreDisplay = document.querySelector('.image-total-highscore');
-
-  // Initialize random coordinates for each image
-  imagesList.forEach(image => {
-    const coords = getRandomCoordinates({ x: 39.163060, y: -86.53067 }, { x: 39.163060, y: -86.5079993 });
-    image.lat = coords.lat;
-    image.long = coords.long;
-  });
-
-  function updateUI() {
-    testImage.src = currentImage.src;
-    scoreDisplay.textContent = `Score: ${userScore}`;
-    highScoreDisplay.textContent = `Highscore: ${highScore}`;
-  }
-
-  // Set up map using Leaflet
-  const mapContainer = document.getElementById('image-container');
-  const map = L.map(mapContainer, {
-    crs: L.CRS.Simple,
-    minZoom: -0.75,
-    maxZoom: 4
-  });
-
-  const imgWidth = 712;
-  const imgHeight = 1040;
-
-  const bounds = [[0, 0], [imgWidth, imgHeight]];
-  L.imageOverlay('images/campus-map.png', bounds).addTo(map);
-  map.setView([imgWidth / 2, imgHeight / 2], 0);
-  map.fitBounds(bounds);
-
-  const userMarker = L.marker([imgWidth / 2, imgHeight / 2], { draggable: true }).addTo(map).on('dragend', function(e) {
-    lockInButton.disabled = false;
-  });
-
-  updateUI();
-
-  lockInButton.addEventListener('click', function () {
-    const userLatLng = userMarker.getLatLng();
-    const { lat, long } = currentImage;
-
-    // Plot the actual location marker
-    const actualMarker = L.marker([lat, long], { icon: L.icon({iconUrl: 'images/map-pin.svg', iconSize: [16, 24] }) }).addTo(map);
-
-    // Draw a line between user guess and actual location
-    const polyline = L.polyline([[userLatLng.lat, userLatLng.lng], [lat, long]], {color: 'red'}).addTo(map);
-
-    const distance = map.distance([userLatLng.lat, userLatLng.lng], [lat, long]);
-    distanceDisplay.textContent = `Actual Distance: ${Math.round(distance)} meters`;
-
-    if (distance <= correctRange) {
-      userScore++;
-      lockInButton.textContent = 'Next';
-    } else {
-      lockInButton.textContent = 'Try Again';
-      if (userScore > highScore) {
-        highScore = userScore;
+    function updateUI() {
+        testImage.src = currentImage.src;
+        scoreDisplay.textContent = `Score: ${userScore}`;
         highScoreDisplay.textContent = `Highscore: ${highScore}`;
-      }
+        distanceDisplay.textContent = `Actual Distance: 0 meters`;
     }
 
-    lockInButton.onclick = function () {
-      // Remove current markers and polylines
-      map.removeLayer(userMarker);
-      map.removeLayer(actualMarker);
-      map.removeLayer(polyline);
+    // Set up map using Leaflet
+    const mapContainer = document.getElementById('image-container');
+    const map = L.map(mapContainer, {
+        crs: L.CRS.Simple,
+        minZoom: -0.75,
+        maxZoom: 4
+    });
 
-      if (lockInButton.textContent === 'Next') {
-        currentImageIndex = (currentImageIndex + 1) % imagesList.length;
-        currentImage = imagesList[currentImageIndex];
-        userScore++;
-        lockInButton.textContent = 'Lock In';
-      }
+    const imgWidth = 712;
+    const imgHeight = 1040;
+    const bounds = [[0, 0], [imgHeight, imgWidth]];
 
-      userMarker.setLatLng([imgWidth / 2, imgHeight / 2]); // Reset user marker to center
-      map.addLayer(userMarker);
-      lockInButton.disabled = true;
-      updateUI();
-    }
-  });
+    L.imageOverlay('images/campus-map.png', bounds).addTo(map);
+    map.fitBounds(bounds);
 
-  lockInButton.disabled = true;
+    // Add guess marker
+    const guessMarker = L.marker([imgWidth / 2, imgHeight / 2], { draggable: true }).addTo(map);
+    guessMarker.on('dragend', function (e) {
+        lockInButton.disabled = false;
+        console.log("Marker dragged to: ", guessMarker.getLatLng());
+    });
+
+    markersGroup.addTo(map); // Add layer group to the map
+
+    lockInButton.addEventListener('click', function () {
+        markersGroup.clearLayers();  // Clear previous markers and lines
+
+        const userLatLng = guessMarker.getLatLng();
+        const correctLatLng = [currentImage.lat, currentImage.long];
+        console.log("User guess:", userLatLng, "Correct location:", correctLatLng);
+
+        // Place the actual location marker
+        const actualMarker = L.marker(correctLatLng, {
+            icon: L.icon({
+                iconUrl: 'images/map-pin.svg',
+                iconSize: [16, 24],
+                className: 'correct-location-pin'
+            })
+        }).addTo(markersGroup);
+
+        // Draw line from user guess to actual location
+        console.log(`Drawing line from ${userLatLng} to ${correctLatLng}`);
+        const line = L.polyline([userLatLng, correctLatLng], {
+            color: 'red',
+            weight: 3
+        }).addTo(markersGroup);
+
+        const distance = map.distance(userLatLng, correctLatLng);
+        console.log(`Calculated distance: ${distance} meters`);
+        distanceDisplay.textContent = `Actual Distance: ${Math.round(distance)} meters`;
+
+        // Evaluate score based on distance
+        if (distance <= correctRange) {
+            userScore++;
+            lockInButton.textContent = 'Next';
+        } else {
+            lockInButton.textContent = 'Try Again';
+            if (userScore > highScore) {
+                highScore = userScore;
+            }
+        }
+
+        updateUI();
+        lockInButton.onclick = () => {
+            markersGroup.clearLayers();  // Clear markers and lines for the new round
+            guessMarker.setLatLng([imgWidth / 2, imgHeight / 2]); // Reset user marker
+            map.setView([imgHeight / 2, imgWidth / 2], 0);
+            lockInButton.disabled = true;
+
+            if (lockInButton.textContent === 'Next') {
+                currentImageIndex = (currentImageIndex + 1) % imagesList.length;
+                currentImage = imagesList[currentImageIndex];
+                userScore = (distance <= correctRange) ? userScore : 0; // Reset score if incorrect
+                lockInButton.textContent = 'Lock In';
+            }
+
+            updateUI();
+        }
+    });
+
+    updateUI();
+    lockInButton.disabled = true;
 });
