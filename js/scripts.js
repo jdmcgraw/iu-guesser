@@ -8,17 +8,13 @@ const pinHeight = 24; // Should match .map-pin height in CSS
 const top_left = {x: 39.163060, y: -86.531024};
 const bottom_right = {x: 39.163060, y: -86.531024};
 
-const mapImage = document.getElementById("map");
-const testimage = document.getElementById("testImage");
-
 document.addEventListener("DOMContentLoaded", function () {
+    
+    const mapImage = document.getElementById("map");
+    const testimage = document.getElementById("testImage");
 
     const imageContainer = document.getElementById("image-container");
 
-    // Disable dragging
-    mapImage.addEventListener("dragstart", function (event) {
-        event.preventDefault();
-    });
     // Disable the default context menu on the image
     mapImage.addEventListener('contextmenu', function (event) {
         event.preventDefault();
@@ -35,7 +31,7 @@ document.addEventListener("DOMContentLoaded", function () {
     // Set up to handle image clicks
     mapImage.addEventListener("click", function (event) {
         const rect = mapImage.getBoundingClientRect(); // Get bounding box of image
-        showLockButton(rect); // Call showLockButton function from lockInButton.js
+        showLockButton(rect); // Call handleButton function from lockInButton.js
 
         const x = event.clientX - rect.left;
         const y = event.clientY - rect.top;

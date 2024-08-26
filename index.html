@@ -1,17 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-    <script type="module" src="js/scripts.js"></script>
-    <script src="js/zoomControl.js"></script>
-    <link rel="stylesheet" href="css/styles.css" />
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>IU GeoGuesser</title>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+    <link rel="stylesheet" href="css/styles.css">
+    <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
 </head>
-
-<!-- Background is White with Borders of Red on Top and Bottom-->
-
 <body>
     <header>
         <h1>Indiana University Bloomington</h1>
@@ -27,25 +23,21 @@
     <main>
         <section>
             <h1>Welcome to IU Guesser</h1>
-            <p>Click on the map of campus where you think the photo was
-                taken!</p>
+            <p>Click on the map where you think the photo was taken!</p>
 
-            <div id="image-container" class="campus-image-cotaniner">
-                <img id="map" class="campus-image" src="images/campus-map.png" alt="IU Campus Map"
-                    usemap="#iu-campus-map" onclick />
+            <div id="image-container" style="height: 500px; width: 100%; border: 2px solid black;">
+                <!-- The map will be initialized here -->
             </div>
             <button id="lockInButton">Lock In</button>
         </section>
         <section class="right-section">
             <div class="right-section-display-map">
-                <img id="testImage" src="images/event_product_hero_img.jpg" alt />
+                <img id="testImage" src="images/event_product_hero_img.jpg" alt="Test Image">
                 <div class="image-total">
                     <div>
-                        <span class="image-actual-distance">Actual Distance:
-                            0</span><br />
+                        <span class="image-actual-distance">Actual Distance: 0</span><br />
                         <span class="image-total-score">Score: 0</span>
-                        <span class="image-total-highscore">Highscore: 0
-                        </span>
+                        <span class="image-total-highscore">Highscore: 0</span>
                     </div>
                 </div>
             </div>
@@ -54,12 +46,38 @@
     <footer>
         <p>&copy; 2024 IU Guesser</p>
     </footer>
+    
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const mapContainer = document.getElementById('image-container');
 
-    <!-- Element to display the coordinates -->
-    <p id="coordinates"></p>
+            if (mapContainer._leaflet_id) {
+                console.warn("Map is already initialized.");
+                return;
+            }
+
+            const map = L.map(mapContainer, {
+                crs: L.CRS.Simple,
+                minZoom: 0,
+                maxZoom: 4,
+            });
+
+            const bounds = [[0, 0], [712, 1040]]; // Adjust based on actual image dimensions
+            const image = L.imageOverlay('images/campus-map.png', bounds).addTo(map);
+
+            map.fitBounds(bounds);
+
+            const marker = L.marker([250, 375], { draggable: true }).addTo(map);
+
+            map.on('click', function (e) {
+                marker.setLatLng(e.latlng);
+            });
+
+            document.getElementById('lockInButton').addEventListener('click', function() {
+                const latLng = marker.getLatLng();
+                console.log(`Locked in position: Latitude ${latLng.lat}, Longitude ${latLng.lng}`);
+            });
+        });
+    </script>
 </body>
-
-<script type="module" src="js/scripts.js"></script>
-<script src="js/zoomControl.js"></script>
-
 </html>
