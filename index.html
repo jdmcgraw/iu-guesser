@@ -5,48 +5,134 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>IU GeoGuesser</title>
     <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
-    <link rel="stylesheet" href="css/styles.css">
-    <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+    <style>
+
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+        
+        header, footer {
+            background-color: #990000;
+            color: white;
+            text-align: center;
+            padding: 10px 0;
+        }
+
+        main {
+            flex: 1;
+            display: flex;
+            padding: 20px;
+            gap: 2rem;
+            justify-content: space-between;
+            align-items: flex-start;
+        }
+
+        .pane {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        #image-container {
+            height: 500px;
+            width: 100%;
+            border: 2px solid black;
+        }
+
+        button {
+            margin-top: 10px;
+            background-color: #990000;
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            cursor: pointer;
+            font-size: 16px;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+        }
+
+        button:hover {
+            background-color: #7a0000;
+        }
+
+        nav ul {
+            list-style-type: none;
+            display: flex;
+            justify-content: center;
+            padding: 0;
+        }
+
+        nav li {
+            margin: 0 10px;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            font-size: 18px;
+        }
+
+        .right-section img {
+            max-width: 100%;
+            height: auto;
+            margin-bottom: 10px;
+        }
+
+        .image-total {
+            text-align: center;
+        }
+
+        .leaflet-marker-icon, .leaflet-marker-shadow {
+            transition: transform 0.1s ease-in-out;
+        }
+
+        .leaflet-bottom {
+            display: none;
+        }
+        
+    </style>
 </head>
 <body>
     <header>
-        <h1>Indiana University Bloomington</h1>
+        <h1><b>Welcome to IU GeoGuesser!</b></h1>
+        <p>Click on the map where you think the photo was taken!</p>
         <nav>
-            <ul>
+            <!-- <ul>
                 <li><a href="index.html">Home</a></li>
                 <li><a href="about.html">About</a></li>
                 <li><a href="contact.html">Contact</a></li>
-            </ul>
+            </ul> -->
         </nav>
     </header>
 
     <main>
-        <section>
-            <h1>Welcome to IU Guesser</h1>
-            <p>Click on the map where you think the photo was taken!</p>
-
-            <div id="image-container" style="height: 500px; width: 100%; border: 2px solid black;">
-                <!-- The map will be initialized here -->
-            </div>
+        <!-- Left pane with map and button -->
+        <section class="pane">
+            <div id="image-container"></div>
             <button id="lockInButton">Lock In</button>
         </section>
-        <section class="right-section">
-            <div class="right-section-display-map">
-                <img id="testImage" src="images/event_product_hero_img.jpg" alt="Test Image">
-                <div class="image-total">
-                    <div>
-                        <span class="image-actual-distance">Actual Distance: 0</span><br />
-                        <span class="image-total-score">Score: 0</span>
-                        <span class="image-total-highscore">Highscore: 0</span>
-                    </div>
-                </div>
+
+        <!-- Right pane with image and score info -->
+        <section class="pane right-section">
+            <img id="testImage" src="images/event_product_hero_img.jpg" alt="Test Image">
+            <div class="image-total">
+                <span class="image-actual-distance">Actual Distance: 0</span><br />
+                <span class="image-total-score">Score: 0</span>
+                <span class="image-total-highscore">Highscore: 0</span>
             </div>
         </section>
     </main>
+
     <footer>
         <p>&copy; 2024 IU Guesser</p>
     </footer>
     
+    <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
     <script>
         document.addEventListener("DOMContentLoaded", function () {
             const mapContainer = document.getElementById('image-container');
@@ -58,16 +144,24 @@
 
             const map = L.map(mapContainer, {
                 crs: L.CRS.Simple,
-                minZoom: 0,
-                maxZoom: 4,
+                minZoom: -0.75,
+                maxZoom: 4
             });
 
-            const bounds = [[0, 0], [712, 1040]]; // Adjust based on actual image dimensions
-            const image = L.imageOverlay('images/campus-map.png', bounds).addTo(map);
+            const imgWidth = 712;
+            const imgHeight = 1040;
 
+            // Define the bounds of the image
+            const bounds = [[0, 0], [imgWidth, imgHeight]];
+
+            // Add the image overlay
+            L.imageOverlay('images/campus-map.png', bounds).addTo(map);
+
+            // Set the initial map view directly centered
+            map.setView([imgWidth / 2, imgHeight / 2], 0);
             map.fitBounds(bounds);
 
-            const marker = L.marker([250, 375], { draggable: true }).addTo(map);
+            const marker = L.marker([imgWidth / 2, imgHeight / 2], { draggable: true }).addTo(map);
 
             map.on('click', function (e) {
                 marker.setLatLng(e.latlng);
